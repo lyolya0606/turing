@@ -42,6 +42,9 @@ namespace turingHard {
             this.buttonDelete = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.лентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.readToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTape = new System.Windows.Forms.DataGridView();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +79,9 @@ namespace turingHard {
             this.Column34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRun = new System.Windows.Forms.Button();
             this.buttonStep = new System.Windows.Forms.Button();
+            this.buttonAgain = new System.Windows.Forms.Button();
+            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTape)).BeginInit();
@@ -200,7 +206,8 @@ namespace turingHard {
             this.menuStrip1.BackColor = System.Drawing.Color.SandyBrown;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оПрограммеToolStripMenuItem});
+            this.оПрограммеToolStripMenuItem,
+            this.лентаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1290, 28);
@@ -212,6 +219,29 @@ namespace turingHard {
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
+            // 
+            // лентаToolStripMenuItem
+            // 
+            this.лентаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SaveToolStripMenuItem,
+            this.readToolStripMenuItem});
+            this.лентаToolStripMenuItem.Name = "лентаToolStripMenuItem";
+            this.лентаToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.лентаToolStripMenuItem.Text = "Лента";
+            // 
+            // SaveToolStripMenuItem
+            // 
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.SaveToolStripMenuItem.Text = "Сохранить";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItemClick);
+            // 
+            // readToolStripMenuItem
+            // 
+            this.readToolStripMenuItem.Name = "readToolStripMenuItem";
+            this.readToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.readToolStripMenuItem.Text = "Восстановить";
+            this.readToolStripMenuItem.Click += new System.EventHandler(this.ReadToolStripMenuItemClick);
             // 
             // dataGridViewTape
             // 
@@ -506,7 +536,7 @@ namespace turingHard {
             // buttonRun
             // 
             this.buttonRun.BackColor = System.Drawing.Color.SandyBrown;
-            this.buttonRun.Location = new System.Drawing.Point(1160, 182);
+            this.buttonRun.Location = new System.Drawing.Point(1006, 168);
             this.buttonRun.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(113, 55);
@@ -518,7 +548,7 @@ namespace turingHard {
             // buttonStep
             // 
             this.buttonStep.BackColor = System.Drawing.Color.SandyBrown;
-            this.buttonStep.Location = new System.Drawing.Point(987, 182);
+            this.buttonStep.Location = new System.Drawing.Point(1160, 168);
             this.buttonStep.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStep.Name = "buttonStep";
             this.buttonStep.Size = new System.Drawing.Size(113, 55);
@@ -527,12 +557,49 @@ namespace turingHard {
             this.buttonStep.UseVisualStyleBackColor = false;
             this.buttonStep.Click += new System.EventHandler(this.ButtonStepClick);
             // 
+            // buttonAgain
+            // 
+            this.buttonAgain.BackColor = System.Drawing.Color.SandyBrown;
+            this.buttonAgain.Location = new System.Drawing.Point(388, 182);
+            this.buttonAgain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonAgain.Name = "buttonAgain";
+            this.buttonAgain.Size = new System.Drawing.Size(113, 55);
+            this.buttonAgain.TabIndex = 10;
+            this.buttonAgain.Text = "Заново";
+            this.buttonAgain.UseVisualStyleBackColor = false;
+            this.buttonAgain.Click += new System.EventHandler(this.ButtonAgainClick);
+            // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Items.AddRange(new object[] {
+            "Быстрая",
+            "Нормальная",
+            "Медленная"});
+            this.comboBox.Location = new System.Drawing.Point(1006, 134);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(121, 24);
+            this.comboBox.TabIndex = 11;
+            this.comboBox.Text = "Нормальная";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(914, 137);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 16);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Скорость";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PapayaWhip;
             this.ClientSize = new System.Drawing.Size(1290, 511);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBox);
+            this.Controls.Add(this.buttonAgain);
             this.Controls.Add(this.buttonStep);
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.dataGridViewTape);
@@ -604,5 +671,11 @@ namespace turingHard {
         private DataGridViewTextBoxColumn Column34;
         private Button buttonRun;
         private Button buttonStep;
+        private ToolStripMenuItem лентаToolStripMenuItem;
+        private ToolStripMenuItem SaveToolStripMenuItem;
+        private ToolStripMenuItem readToolStripMenuItem;
+        private Button buttonAgain;
+        private ComboBox comboBox;
+        private Label label2;
     }
 }
