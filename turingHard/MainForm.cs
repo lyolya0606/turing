@@ -40,11 +40,6 @@ namespace turingHard {
             buttonStep.Enabled = true;
         }
 
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
         private void ButtonAddColClick(object sender, EventArgs e) {
             DataGridViewTextBoxColumn dgvAge = new DataGridViewTextBoxColumn();
             dgvAge.HeaderText = "Q" + (dataGridView.ColumnCount + 1).ToString();
@@ -56,19 +51,7 @@ namespace turingHard {
             dataGridView.Columns.RemoveAt(dataGridView.ColumnCount - 1);
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-        private void DataGridView1CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            
-        }
-
-        public void GetTape() {
+        private void GetTape() {
             List<char> tape = new List<char>();
             for (int i = 0; i < dataGridViewTape.Columns.Count; i++) {
                 tape.Add(char.Parse(dataGridViewTape[i, 0].Value.ToString()));
@@ -76,22 +59,26 @@ namespace turingHard {
             this.tape = tape;
         }
 
-        public void GetTable() {
+        private int GetFirstIndex() {
+            return dataGridViewTape.CurrentCell.ColumnIndex;
         }
+
 
         private void ButtonRunClick(object sender, EventArgs e) {
             dataGridView.ClearSelection();
             dataGridViewTape.ClearSelection();
             if (start) {
                 GetTape();
-                char firstSymbol = '_';
-                foreach (char c in this.tape) {
-                    if (c != '_') {
-                        firstSymbol = c;
-                        this.index = this.tape.IndexOf(c);
-                        break;
-                    }
-                }
+                this.index = GetFirstIndex();
+                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
+                //char firstSymbol = '_';
+                //foreach (char c in this.tape) {
+                //    if (c != '_') {
+                //        firstSymbol = c;
+                //        this.index = this.tape.IndexOf(c);
+                //        break;
+                //    }
+                //}
                 for (int i = 0; i < dataGridView.Rows.Count; i++) {
                     if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == firstSymbol) {
                         this.action = dataGridView[0, i].Value.ToString();
@@ -172,14 +159,16 @@ namespace turingHard {
 
             if (start) {
                 GetTape();
-                char firstSymbol = '_';
-                foreach (char c in this.tape) {
-                    if (c != '_') {
-                        firstSymbol = c;
-                        this.index = this.tape.IndexOf(c);
-                        break;
-                    }
-                }
+                this.index = GetFirstIndex();
+                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
+                //char firstSymbol = '_';
+                //foreach (char c in this.tape) {
+                //    if (c != '_') {
+                //        firstSymbol = c;
+                //        this.index = this.tape.IndexOf(c);
+                //        break;
+                //    }
+                //}
 
 
                 for (int i = 0; i < dataGridView.Rows.Count; i++) {
@@ -226,17 +215,18 @@ namespace turingHard {
             finish = false;
             buttonStep.Enabled = true;
             lastCondition = '1';
+            dataGridView.ClearSelection();
+            dataGridViewTape.ClearSelection();
         }
 
         private int Speed() {
             if (comboBox.Text.ToString() == "Быстрая") {
                 return 250;
             } else if (comboBox.Text.ToString() == "Нормальная") {
-                return 400;
+                return 300;
             } else {
                 return 500;
             }
-        }
-    
+        }    
     }
 }
