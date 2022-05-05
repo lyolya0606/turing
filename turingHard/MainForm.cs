@@ -67,18 +67,21 @@ namespace turingHard {
         private void ButtonRunClick(object sender, EventArgs e) {
             dataGridView.ClearSelection();
             dataGridViewTape.ClearSelection();
+            GetTape();
+            //int index = -1;
             if (start) {
-                GetTape();
-                this.index = GetFirstIndex();
-                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
-                //char firstSymbol = '_';
-                //foreach (char c in this.tape) {
-                //    if (c != '_') {
-                //        firstSymbol = c;
-                //        this.index = this.tape.IndexOf(c);
-                //        break;
-                //    }
-                //}
+
+                char firstSymbol = '_';
+                foreach (char c in this.tape) {
+                    if (c != '_') {
+                        firstSymbol = c;
+                        this.index = this.tape.IndexOf(c);
+                        break;
+                    }
+                }
+
+                //string action = "";
+
                 for (int i = 0; i < dataGridView.Rows.Count; i++) {
                     if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == firstSymbol) {
                         this.action = dataGridView[0, i].Value.ToString();
@@ -94,18 +97,115 @@ namespace turingHard {
             while (!finish) {
                 dataGridView.ClearSelection();
                 dataGridViewTape.ClearSelection();
+                GetTape();
                 DoSteps();
                 Thread.CurrentThread.Join(Speed());
+                this.start = false;
             }
 
-            this.start = false;
+            //this.start = false;
         }
+
+        //private void DoSteps() {
+        //    if (this.action[2] == this.nowCondition) {
+
+        //        this.lastIndex = this.index;
+        //        this.lastAction = this.action;
+
+        //        dataGridViewTape[this.lastIndex, 0].Selected = true;
+
+        //        for (int i = 0; i < dataGridView.Rows.Count; i++) {
+        //            if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == this.tape[this.index]) {
+        //                dataGridView[(int)(this.lastCondition - '0') - 1, i].Selected = true;
+        //                break;
+        //            }
+        //        }
+
+        //        this.lastCondition = this.nowCondition;
+
+        //        if (this.action[1] == '.' && this.action[2] == '0') {
+        //            buttonStep.Enabled = false;
+        //            MessageBoxButtons buttons = MessageBoxButtons.OK;
+        //            MessageBox.Show("Программа завершена", "Завершение", buttons, MessageBoxIcon.Information);
+        //            finish = true;
+        //            return;
+        //        }
+
+        //        if (this.action[1] == '>') {
+        //            this.index++;
+        //        }
+        //        else {
+        //            this.index--;
+        //        }
+
+        //        if (this.tape[this.index] != this.nowSymbol) {
+        //            this.nowSymbol = this.tape[this.index];
+        //            for (int i = 0; i < dataGridView.Rows.Count; i++) {
+        //                if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == this.nowSymbol) {
+        //                    //if (dataGridView[(int)(nowCondition - '0') - 1, i].Value.ToString() == "") {
+        //                    //    MessageBoxButtons buttons = MessageBoxButtons.OK;
+        //                    //    MessageBox.Show("Ошибка в состоянии", "Ошибка", buttons, MessageBoxIcon.Error);
+        //                    //    return;
+        //                    //} else {
+        //                        this.action = dataGridView[(int)(nowCondition - '0') - 1, i].Value.ToString();
+        //                        this.nowCondition = this.action[2];
+        //                    //}
+
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //}
+
+
+        //private void ButtonStepClick(object sender, EventArgs e) {
+        //    dataGridView.ClearSelection();
+        //    dataGridViewTape.ClearSelection();
+
+        //    if (start) {
+        //        GetTape();
+        //        this.index = GetFirstIndex();
+        //        char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
+        //        //char firstSymbol = '_';
+        //        //foreach (char c in this.tape) {
+        //        //    if (c != '_') {
+        //        //        firstSymbol = c;
+        //        //        this.index = this.tape.IndexOf(c);
+        //        //        break;
+        //        //    }
+        //        //}
+
+
+        //        for (int i = 0; i < dataGridView.Rows.Count; i++) {
+        //            if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == firstSymbol) {
+        //                this.action = dataGridView[0, i].Value.ToString();
+        //                dataGridView[0, i].Selected = true;
+        //                break;
+        //            }
+        //        }
+
+        //        this.nowSymbol = firstSymbol;
+        //        this.nowCondition = '1';
+        //    } else {
+
+        //        dataGridViewTape[this.lastIndex, 0].Value = this.lastAction[0];
+
+        //    }
+        //    DoSteps();
+
+        //    this.start = false;
+        //}
+
+
 
         private void DoSteps() {
             if (this.action[2] == this.nowCondition) {
                 this.lastIndex = this.index;
                 this.lastAction = this.action;
                 dataGridViewTape[this.lastIndex, 0].Selected = true;
+                dataGridViewTape[this.lastIndex, 0].Value = this.lastAction[0];
                 for (int i = 0; i < dataGridView.Rows.Count; i++) {
                     if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == this.tape[this.index]) {
                         dataGridView[(int)(this.lastCondition - '0') - 1, i].Selected = true;
@@ -119,31 +219,23 @@ namespace turingHard {
                     buttonStep.Enabled = false;
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     MessageBox.Show("Программа завершена", "Завершение", buttons, MessageBoxIcon.Information);
-                    finish = true;
+                    this.finish = true;
                     return;
                 }
 
                 if (this.action[1] == '>') {
                     this.index++;
-                }
-                else {
+                } else {
                     this.index--;
                 }
 
-                dataGridViewTape[this.lastIndex, 0].Value = this.lastAction[0];
+                //dataGridViewTape[this.lastIndex, 0].Value = this.lastAction[0];
                 if (this.tape[this.index] != this.nowSymbol) {
                     this.nowSymbol = this.tape[this.index];
                     for (int i = 0; i < dataGridView.Rows.Count; i++) {
                         if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == this.nowSymbol) {
-                            if (dataGridView[(int)(nowCondition - '0') - 1, i].Value.ToString() == "") {
-                                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                                MessageBox.Show("Ошибка в состоянии", "Ошибка", buttons, MessageBoxIcon.Error);
-                                return;
-                            } else {
-                                this.action = dataGridView[(int)(nowCondition - '0') - 1, i].Value.ToString();
-                                this.nowCondition = this.action[2];
-                            }
-
+                            this.action = dataGridView[(int)(nowCondition - '0') - 1, i].Value.ToString();
+                            this.nowCondition = this.action[2];
                             break;
                         }
                     }
@@ -156,20 +248,20 @@ namespace turingHard {
         private void ButtonStepClick(object sender, EventArgs e) {
             dataGridView.ClearSelection();
             dataGridViewTape.ClearSelection();
-
+            GetTape();
+            //int index = -1;
             if (start) {
-                GetTape();
-                this.index = GetFirstIndex();
-                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
-                //char firstSymbol = '_';
-                //foreach (char c in this.tape) {
-                //    if (c != '_') {
-                //        firstSymbol = c;
-                //        this.index = this.tape.IndexOf(c);
-                //        break;
-                //    }
-                //}
 
+                char firstSymbol = '_';
+                foreach (char c in this.tape) {
+                    if (c != '_') {
+                        firstSymbol = c;
+                        this.index = this.tape.IndexOf(c);
+                        break;
+                    }
+                }
+
+                //string action = "";
 
                 for (int i = 0; i < dataGridView.Rows.Count; i++) {
                     if (char.Parse(dataGridView.Rows[i].HeaderCell.Value.ToString()) == firstSymbol) {
@@ -186,6 +278,12 @@ namespace turingHard {
 
             this.start = false;
         }
+
+
+
+
+
+
 
         private void SaveToolStripMenuItemClick(object sender, EventArgs e) {
             GetTape();
@@ -227,6 +325,12 @@ namespace turingHard {
             } else {
                 return 500;
             }
-        }    
+        }
+
+        private void AboutToolStripMenuItemClick(object sender, EventArgs e) {
+            About about = new About();
+            about.Owner = this;
+            about.ShowDialog();
+        }
     }
 }
