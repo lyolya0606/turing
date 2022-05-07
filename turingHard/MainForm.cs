@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,18 @@ namespace turingHard {
         private int lastIndex;
         public MainForm() {
             InitializeComponent();
+
+            dataGridViewTape.RowCount = 1;
+            dataGridViewTape.ColumnCount = 100;
+            dataGridViewTape.Rows[0].Height = 30;
+            int count = -50;
+            for (int i = 0; i < 100; i++) {
+                dataGridViewTape.Columns[i].HeaderCell.Value = count.ToString();
+                count++;
+                dataGridViewTape.Columns[i].Width = 30;
+                dataGridViewTape[i, 0].Value = "_";
+            }
+            dataGridViewTape.FirstDisplayedScrollingColumnIndex = 30;
         }
 
         private void ButtonClick(object sender, EventArgs e) {
@@ -32,10 +45,6 @@ namespace turingHard {
             dataGridView.RowCount = alphabetList.Count;
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 dataGridView.Rows[i].HeaderCell.Value = (alphabetList[i]).ToString();
-            }
-
-            for (int i = 0; i < dataGridViewTape.Columns.Count; i++) {
-                dataGridViewTape[i, 0].Value = "_";
             }
             buttonStep.Enabled = true;
         }
@@ -70,15 +79,16 @@ namespace turingHard {
             GetTape();
             //int index = -1;
             if (start) {
-
-                char firstSymbol = '_';
-                foreach (char c in this.tape) {
-                    if (c != '_') {
-                        firstSymbol = c;
-                        this.index = this.tape.IndexOf(c);
-                        break;
-                    }
-                }
+                this.index = GetFirstIndex();
+                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
+                //char firstSymbol = '_';
+                //foreach (char c in this.tape) {
+                //    if (c != '_') {
+                //        firstSymbol = c;
+                //        this.index = this.tape.IndexOf(c);
+                //        break;
+                //    }
+                //}
 
                 //string action = "";
 
@@ -251,15 +261,17 @@ namespace turingHard {
             GetTape();
             //int index = -1;
             if (start) {
-
-                char firstSymbol = '_';
-                foreach (char c in this.tape) {
-                    if (c != '_') {
-                        firstSymbol = c;
-                        this.index = this.tape.IndexOf(c);
-                        break;
-                    }
-                }
+                GetTape();
+                this.index = GetFirstIndex();
+                char firstSymbol = char.Parse(dataGridViewTape[index, 0].Value.ToString());
+                //char firstSymbol = '_';
+                //foreach (char c in this.tape) {
+                //    if (c != '_') {
+                //        firstSymbol = c;
+                //        this.index = this.tape.IndexOf(c);
+                //        break;
+                //    }
+                //}
 
                 //string action = "";
 
@@ -319,18 +331,56 @@ namespace turingHard {
 
         private int Speed() {
             if (comboBox.Text.ToString() == "Быстрая") {
-                return 250;
+                return 200;
             } else if (comboBox.Text.ToString() == "Нормальная") {
-                return 300;
+                return 400;
             } else {
-                return 500;
+                return 600;
             }
         }
 
         private void AboutToolStripMenuItemClick(object sender, EventArgs e) {
-            About about = new About();
-            about.Owner = this;
+            About about = new About {
+                Owner = this
+            };
             about.ShowDialog();
+        }
+
+
+        // Оля это чушь переделывай!!!!!!!!!!!!!!!!!!!!
+        private Dictionary<string, string> GetDictTable() {
+            Dictionary<string, string> dictTable = new Dictionary<string, string>();
+            string str = "";
+            for (int i = 0; i < dataGridView.Rows.Count; i++) {
+                str = dataGridView.Rows[i].HeaderCell.Value.ToString();
+                for (int j = 0; j < dataGridView.Columns.Count; i++) {
+                    if (dataGridView[j, i].Value.ToString() != null) {
+                        dictTable[str + j.ToString()] = dataGridView[j, i].Value.ToString();
+                    }
+                }
+            }
+            return dictTable;
+        }
+
+        private void SaveTableToolStripMenuItemClick(object sender, EventArgs e) {
+            //SaveFileDialog saveFileDialog = new SaveFileDialog() {
+            //    InitialDirectory = @"C:\Users\lyolya\source\repos\turingHard\turingHard\bin\Debug\Files"
+            //};
+            //saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            //saveFileDialog.FilterIndex = 2;
+            //saveFileDialog.RestoreDirectory = true;
+            //Dictionary<string, string> dict = GetDictTable();
+
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+            //    using (var sr = new StreamWriter(saveFileDialog.FileName)) {
+            //        foreach (var pair in dict) {
+            //            sr.WriteLine(pair.Key + " " + pair.Value);
+            //        }
+            //    }
+            //    MessageBox.Show("File was successfully saved!", "Saving!");
+            //} else {
+            //    MessageBox.Show("File was not saved!", "Warning!");
+            //}
         }
     }
 }

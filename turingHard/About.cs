@@ -13,5 +13,9 @@ namespace turingHard {
         public About() {
             InitializeComponent();
         }
+
+        private void About_Load(object sender, EventArgs e) {
+
+        }
     }
 }
