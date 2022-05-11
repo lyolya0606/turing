@@ -45,9 +45,6 @@ namespace turingHard {
             this.лентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRun = new System.Windows.Forms.Button();
             this.buttonStep = new System.Windows.Forms.Button();
             this.buttonAgain = new System.Windows.Forms.Button();
@@ -178,8 +175,7 @@ namespace turingHard {
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.оПрограммеToolStripMenuItem,
-            this.лентаToolStripMenuItem,
-            this.файлToolStripMenuItem});
+            this.лентаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1290, 28);
@@ -215,28 +211,6 @@ namespace turingHard {
             this.readToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
             this.readToolStripMenuItem.Text = "Восстановить";
             this.readToolStripMenuItem.Click += new System.EventHandler(this.ReadToolStripMenuItemClick);
-            // 
-            // файлToolStripMenuItem
-            // 
-            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сохранитьToolStripMenuItem,
-            this.открытьToolStripMenuItem});
-            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
-            this.файлToolStripMenuItem.Text = "Файл";
-            // 
-            // сохранитьToolStripMenuItem
-            // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.SaveTableToolStripMenuItemClick);
-            // 
-            // открытьToolStripMenuItem
-            // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // buttonRun
             // 
@@ -381,9 +355,6 @@ namespace turingHard {
         private Button buttonAgain;
         private ComboBox comboBox;
         private Label label2;
-        private ToolStripMenuItem файлToolStripMenuItem;
-        private ToolStripMenuItem сохранитьToolStripMenuItem;
-        private ToolStripMenuItem открытьToolStripMenuItem;
         private DataGridView dataGridViewTape;
     }
 }
